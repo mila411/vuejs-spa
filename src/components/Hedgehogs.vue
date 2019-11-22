@@ -31,11 +31,18 @@ export default {
   computed: {
     hedgehogs() {
       return this.$store.state.hedgehogs;
+    },
+    isAuthenticated() {
+      return this.$store.getters.isAuthenticated;
     }
   },
   methods: {
-    favoriteHedgehog(hedgehog) {
-      alert(hedgehog.name)
+    favoriteHedgehog(item) {
+      if (this.isAuthenticated) {
+        this.$store.dispatch('addFavolite', item);
+      } else {
+        this.$router.push('/sign-in');
+      }
     }
   }
 };
